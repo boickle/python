@@ -2,14 +2,15 @@
 import MySQLdb
 import ftplib
 import smtplib
+import config as cfg
 
 from email.MIMEMultipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-db = MySQLdb.connect(host="10.0.0.105",    # your host, usually localhost
-                     user="weewx",         # your username
-                     passwd="weewx123!",  # your password
-                     db="weewx")        # name of the data base
+db = MySQLdb.connect(host=cfg.mysql['host'],    # your host, usually localhost
+                     user=cfg.mysql['user'],         # your username
+                     passwd=cfg.mysql['passwd'],  # your password
+                     db=cfg.mysql['db'])        # name of the data base
 
 # you must create a Cursor object. It will let
 #  you execute all the queries you need
