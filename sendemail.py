@@ -32,23 +32,23 @@ for row in cur.fetchall():
     dateTimeMax = row[0]
 
 db.close()
- 
- 
-fromaddr = "brian.oickle@gmail.com"
-toaddr = "boickle@bigroomstudios.com"
+
+
+fromaddr = cfg.email['fromaddr']
+toaddr = cfg.email['toaddr']
 msg = MIMEMultipart()
 msg['From'] = fromaddr
 msg['To'] = toaddr
-msg['Subject'] = "Weather For a Day"
- 
+msg['Subject'] = cfg.email['subject']
+
 body = "Low Temperature: " + str(outTempMin) + " at " + str(dateTimeMin) + "\r\n"
 body += "High Temperature: " + str(outTempMax) + " at " + str(dateTimeMax) + "\r\n"
- 
+
 msg.attach(MIMEText(body, 'plain'))
- 
-server = smtplib.SMTP('smtp.gmail.com', 587)
+
+server = smtplib.SMTP(cfg.email['server'], 587)
 server.starttls()
-server.login(fromaddr, "deirdreIL0ve")
+server.login(fromaddr, cfg.email['passwd'])
 text = msg.as_string()
 server.sendmail(fromaddr, toaddr, text)
 server.quit()
